@@ -9,7 +9,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.core.ScriptException;
+import org.bitcoinj.script.ScriptError;
+import org.bitcoinj.script.ScriptException;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.params.TestNet3Params;
@@ -34,7 +35,7 @@ public class Utility {
 	 * gets the Address from an Output
 	 *
 	 * @param output The output which's address you seek
-	 * @param params The network parameters
+	 *
 	 * @return an valid bitcoinAddress from pay to key or pay to script
 	 * @throws ScriptException  if output has an invalid Address
 	 */
@@ -42,7 +43,7 @@ public class Utility {
 		try {
 			return output.getScriptPubKey().getToAddress(PARAMS, true);
 		} catch (IllegalArgumentException e) {
-			throw new ScriptException("Unable to get the address");
+			throw new ScriptException(ScriptError.SCRIPT_ERR_UNKNOWN_ERROR,"Unable to get the address");
 		}
 	}
 

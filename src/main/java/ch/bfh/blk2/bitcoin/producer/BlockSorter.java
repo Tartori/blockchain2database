@@ -114,11 +114,12 @@ public class BlockSorter {
 
 		//logger.debug(bfl);
 		for (File file : fileList) {
-
+			logger.debug("Reading file: " + file.getName());
 			List<File> currentFile = new ArrayList<>(1);
 			currentFile.add(file);
 			BlockFileLoader bfl = new BlockFileLoader(Utility.PARAMS, currentFile);
 			for (Block blk : bfl) {
+
 				logger.trace("block: " + blk.getHashAsString());
 				BlockIdentifier bi = new BlockIdentifier(blk, file.getName());
 				if (blockMap.containsKey(bi.getParentHash()))
@@ -127,6 +128,9 @@ public class BlockSorter {
 					unsortedBlocks.add(bi);
 			}
 		}
+
+		int blockCounter = blockMap.size() + unsortedBlocks.size();
+		logger.debug("# blocks = " + blockCounter);
 	}
 
 	public Map<String, Integer> extractFileInformation() {

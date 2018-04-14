@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 import org.bitcoinj.core.Block;
 import org.bitcoinj.core.Context;
 import org.bitcoinj.core.NetworkParameters;
-import org.bitcoinj.core.ScriptException;
+import org.bitcoinj.script.ScriptException;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.params.MainNetParams;
