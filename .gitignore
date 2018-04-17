@@ -76,3 +76,6 @@ Session.vim
 *~
 
 
+### IntelliJ
+.idea/
+blockchain2database.iml
