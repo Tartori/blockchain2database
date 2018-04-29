@@ -34,7 +34,7 @@ public class InputScriptAnalyzer {
 							fakeCounter++;
 						for( ScriptChunk scriptChunk: script.getChunks()){
 							if( scriptChunk.isOpCode())
-								if( scriptChunk.equalsOpCode(174) || scriptChunk.equals(175)){
+								if( scriptChunk.equalsOpCode(174) || scriptChunk.equals(175)){	//OP_CHECKMULTISIG, OP_CHECKMULTISIGVERIFY
 									realCounter++;
 									continue;
 								}

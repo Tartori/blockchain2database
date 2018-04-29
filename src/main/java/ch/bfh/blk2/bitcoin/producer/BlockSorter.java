@@ -114,7 +114,7 @@ public class BlockSorter {
 
 		//logger.debug(bfl);
 		for (File file : fileList) {
-
+			logger.debug("Reading file: " + file.getName());
 			List<File> currentFile = new ArrayList<>(1);
 			currentFile.add(file);
 			BlockFileLoader bfl = new BlockFileLoader(Utility.PARAMS, currentFile);
