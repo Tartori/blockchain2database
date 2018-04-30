@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Utils;
 import org.bitcoinj.params.TestNet3Params;
+import org.bitcoinj.core.LegacyAddress;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -82,7 +84,8 @@ public class PubKeyManagerTest {
 
 		PubKeyManager pkManager = PubKeyManager.getInstance();
 
-		String address = eckey.toAddress(new TestNet3Params()).toString();
+		//String address = eckey.toAddress(new TestNet3Params()).toString();
+		String address = LegacyAddress.fromKey(new TestNet3Params(), eckey).toString();
 
 		long pubkey_id = pkManager.insertRawPK(connection, pkBytes);
 
@@ -118,7 +121,8 @@ public class PubKeyManagerTest {
 
 		PubKeyManager pkManager = PubKeyManager.getInstance();
 
-		String address = eckey.toAddress(new TestNet3Params()).toString();
+		//String address = eckey.toAddress(new TestNet3Params()).toString();
+		String address = LegacyAddress.fromKey(new TestNet3Params(), eckey).toString();
 
 		long address_id = pkManager.insertPubkeyHash(connection, address);
 		long pubkey_id = pkManager.insertRawPK(connection, pubKey);

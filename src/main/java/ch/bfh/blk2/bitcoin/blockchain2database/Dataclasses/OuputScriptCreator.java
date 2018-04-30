@@ -2,7 +2,7 @@ package ch.bfh.blk2.bitcoin.blockchain2database.Dataclasses;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.bitcoinj.core.ScriptException;
+import org.bitcoinj.script.ScriptException;
 import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.script.Script;
 

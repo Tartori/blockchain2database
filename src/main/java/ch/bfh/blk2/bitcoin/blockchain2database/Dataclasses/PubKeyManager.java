@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.bitcoinj.core.Address;
+import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Utils;
 
@@ -90,7 +90,8 @@ public class PubKeyManager {
 				throw new IllegalArgumentException();
 
 			ECKey publicKey = ECKey.fromPublicOnly(pkBytes);
-			pkHash = publicKey.toAddress(Utility.PARAMS).toString();
+			pkHash = LegacyAddress.fromKey(Utility.PARAMS, publicKey).toString();
+			//pkHash = publicKey.toAddress(Utility.PARAMS).toString();
 			pkHex = publicKey.getPublicKeyAsHex();
 		} catch (IllegalArgumentException e) {
 			//String keyPrint = new String(pkBytes);
@@ -100,7 +101,7 @@ public class PubKeyManager {
 			logger.debug("Will write in a hex represenattion of the keybytes instead and mark the key as invalid.");
 
 			byte[] pubKeyHash = Utils.sha256hash160(pkBytes);
-			pkHash = new Address(Utility.PARAMS, pubKeyHash).toString();
+			pkHash = new LegacyAddress(Utility.PARAMS, pubKeyHash).toString();
 
 			valid = false;
 		}

@@ -15,6 +15,8 @@ import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptBuilder;
 import org.bitcoinj.script.ScriptChunk;
 import org.bitcoinj.script.ScriptOpCodes;
+import org.bitcoinj.core.LegacyAddress;
+
 import org.junit.*;
 
 import static org.junit.Assert.*;
@@ -130,7 +132,8 @@ public class MultiSigScriptTest {
 			
 			String pkRef = pks.get(idx);
 			ECKey publicKey = ECKey.fromPublicOnly(Utils.HEX.decode(pkRef));
-			String pkHash = publicKey.toAddress(new TestNet3Params()).toString();
+			//String pkHash = publicKey.toAddress(new TestNet3Params()).toString();
+			String pkHash = LegacyAddress.fromKey(new TestNet3Params(), publicKey).toString();
 
 			assertTrue(result.next());
 			assertEquals(pkRef, result.getString("pubkey"));

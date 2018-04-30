@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.bitcoinj.core.Context;
 import org.bitcoinj.core.Block;
-import org.bitcoinj.core.ScriptException;
+import org.bitcoinj.script.ScriptException;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptChunk;
 import org.bitcoinj.core.Transaction;

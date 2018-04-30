@@ -1,5 +1,6 @@
 package ch.bfh.blk2.bitcoin.blockchain2database;
 
+import java.nio.charset.Charset;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -10,6 +11,7 @@ import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptBuilder;
 import org.bitcoinj.script.ScriptChunk;
 import org.bitcoinj.script.ScriptOpCodes;
+import org.bitcoinj.core.LegacyAddress;
 import org.junit.*;
 
 import static org.junit.Assert.*;
@@ -65,9 +67,9 @@ public class P2PKHashScriptTest {
 		
 		//construct a P2PKHash output script
 		
-		Address addr = new Address(new TestNet3Params(), "mixzB3ZsBeHFTPkpoYVocFbwE1NBYmkksb");
+		Address addr = new LegacyAddress(new TestNet3Params(), "mixzB3ZsBeHFTPkpoYVocFbwE1NBYmkksb".getBytes(Charset.forName("UTF-8")));
 		
-		byte [] pkHash = addr.getHash160();
+		byte [] pkHash = addr.getHash();
 		int scriptSize = pkHash.length + 5; 
 
 		Script script = createScript(pkHash);
