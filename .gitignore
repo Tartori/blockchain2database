@@ -78,7 +78,7 @@ Session.vim
 
 ### IntelliJ
 .idea/
-#blockchain2database.iml
+blockchain2database.iml
 
 
 #bitcoinJ jar until they release the new versionsBackup
