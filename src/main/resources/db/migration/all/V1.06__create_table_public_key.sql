@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS public_key(
   pubkey VARCHAR(192),
   valid_pubkey BOOLEAN,
     PRIMARY KEY(id)
-)ENGINE = MEMORY;
+)ENGINE = InnoDB;
 
 -- According to the MariaDB documentation, this will make
 -- the rows unique.

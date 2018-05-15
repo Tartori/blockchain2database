@@ -7,6 +7,6 @@ CREATE TABLE IF NOT EXISTS transaction(
   tx_hash VARCHAR(64),
   blk_index BIGINT,
     FOREIGN KEY(blk_id) REFERENCES block(blk_id)
-)ENGINE = MEMORY;
+)ENGINE = InnoDB;
 
 CREATE INDEX tx_hash USING BTREE ON transaction (tx_hash);

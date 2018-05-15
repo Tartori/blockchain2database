@@ -9,4 +9,4 @@ CREATE TABLE IF NOT EXISTS input(
     PRIMARY KEY(tx_id,tx_index),
     FOREIGN KEY(tx_id) REFERENCES transaction(tx_id),
     FOREIGN KEY(script_type_id) REFERENCES script_type(id)
-)ENGINE = MEMORY;
+)ENGINE = InnoDB;

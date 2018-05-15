@@ -67,11 +67,16 @@ public class OuputScriptCreator {
 
 				// OP_RETURN w/ data >80 Byte is not relayed by core client, thus not a standard transaction...
 				if (script.isOpReturn() )
-					if( script.getChunks().get(1).data != null && script.getChunks().get(1).data.length <= MAX_OP_RETURN_SIZE )
-						return new OPReturnScript(script, scriptSize, txId, txIndex);
-					else{
-						return new OtherScript(script, scriptSize, txId, txIndex, ScriptType.OUT_OP_RETURN_SPEC);
-					}
+					if (script.getChunks().size() == 2) {
+						if (script.getChunks().get(1).data != null && script.getChunks().get(1).data.length <= MAX_OP_RETURN_SIZE)
+							return new OPReturnScript(script, scriptSize, txId, txIndex);
+						else
+							return new OtherScript(script, scriptSize, txId, txIndex, ScriptType.OUT_OP_RETURN_SPEC);
+					} else
+							return new OtherScript(script, scriptSize, txId, txIndex, ScriptType.OUT_OP_RETURN_SPEC);
+
+
+
 
 			} catch (IllegalArgumentException e) {
 				logger.debug("There was an error when trying to detect the script type for the following scrip: "

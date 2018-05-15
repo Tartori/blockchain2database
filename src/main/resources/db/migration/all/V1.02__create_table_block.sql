@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS block(
   height BIGINT,
   version BIGINT,
   nonce BIGINT
-)ENGINE = MEMORY;
+)ENGINE = InnoDB;
 
 CREATE INDEX hash USING BTREE ON block (hash);
