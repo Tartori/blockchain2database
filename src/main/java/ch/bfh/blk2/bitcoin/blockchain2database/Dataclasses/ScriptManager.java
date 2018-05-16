@@ -39,9 +39,9 @@ public class ScriptManager {
 			PreparedStatement queryStatement = connection.getPreparedStatement(currentScriptIdQuery);
 			ResultSet rs_1 = queryStatement.executeQuery();
 			if (rs_1.next()) {
+				scriptId = rs_1.getLong(1);
 				rs_1.close();
 				queryStatement.close();
-				scriptId = rs_1.getLong(1);
 			} else
 				throw new SQLException("Did not get a result as expected");
 		} catch (SQLException e) {
@@ -52,6 +52,22 @@ public class ScriptManager {
 		scriptId++;
 
 		int index = 0;
+		if (script.getChunks().size() == 0){
+			PreparedStatement insertStatement = connection.getPreparedStatement(insertInstruction);
+			try {
+				insertStatement.setLong(1, scriptId);
+				insertStatement.setInt(2, 0);
+				insertStatement.setNull(3, java.sql.Types.NULL);
+				insertStatement.setNull(4, java.sql.Types.NULL);
+
+				insertStatement.executeUpdate();
+
+				insertStatement.close();
+			} catch (SQLException e) {
+				logger.fatal("Unable to write chunk #" + 0 + " for this script: " + script.toString(), e);
+				System.exit(1);
+			}
+		}
 		for (ScriptChunk chunk : script.getChunks()) {
 			PreparedStatement insertStatement = connection.getPreparedStatement(insertInstruction);
 			try {
