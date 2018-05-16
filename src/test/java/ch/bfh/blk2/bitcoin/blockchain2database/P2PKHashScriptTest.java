@@ -66,9 +66,13 @@ public class P2PKHashScriptTest {
 	public void writeP2PKHashScript() throws AddressFormatException, SQLException{
 		
 		//construct a P2PKHash output script
-		
-		Address addr = new LegacyAddress(new TestNet3Params(), "mixzB3ZsBeHFTPkpoYVocFbwE1NBYmkksb".getBytes(Charset.forName("UTF-8")));
-		
+
+		BlockTransactionOutputWriter blkTxOutWriter = new BlockTransactionOutputWriter(connection);
+		blkTxOutWriter.write();
+
+		//Address addr = new Address(new TestNet3Params(), "mixzB3ZsBeHFTPkpoYVocFbwE1NBYmkksb");
+		Address addr = LegacyAddress.fromBase58(new TestNet3Params(), "mixzB3ZsBeHFTPkpoYVocFbwE1NBYmkksb");
+
 		byte [] pkHash = addr.getHash();
 		int scriptSize = pkHash.length + 5; 
 

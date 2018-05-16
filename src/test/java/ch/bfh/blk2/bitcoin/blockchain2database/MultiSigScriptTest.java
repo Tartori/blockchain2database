@@ -76,6 +76,9 @@ public class MultiSigScriptTest {
 	@Test
 	public void writeMultisigOutputScript() throws SQLException{
 
+		BlockTransactionOutputWriter blkTxOutWriter = new BlockTransactionOutputWriter(connection);
+		blkTxOutWriter.write();
+
 		int min = 3,
 			scriptSize = 20;
 		
