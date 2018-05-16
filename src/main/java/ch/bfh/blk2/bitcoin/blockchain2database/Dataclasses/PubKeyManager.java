@@ -101,8 +101,8 @@ public class PubKeyManager {
 			logger.debug("Will write in a hex represenattion of the keybytes instead and mark the key as invalid.");
 
 			byte[] pubKeyHash = Utils.sha256hash160(pkBytes);
-			pkHash = new LegacyAddress(Utility.PARAMS, pubKeyHash).toString();
-
+			pkHash = LegacyAddress.fromPubKeyHash(Utility.PARAMS, pubKeyHash).toString();
+			//pkHash = new Address(Utility.PARAMS, pubKeyHash).toString();
 			valid = false;
 		}
 
