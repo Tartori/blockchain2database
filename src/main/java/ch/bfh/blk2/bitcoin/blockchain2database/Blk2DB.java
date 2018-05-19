@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -290,14 +291,17 @@ public class Blk2DB {
 				// Don't do anything
 			}
 
-		int numOfTransactions = 0;
-		long startTime = System.currentTimeMillis();
+		//int numOfTransactions = 0;
+		//long startTime = System.currentTimeMillis();
+		long mainStartTime = System.currentTimeMillis();
+		long totalNumOfTransactions = 0;
 
 		for (Block block : blockProducer) {
 			prevId = writeBlock(block, currentHeight++, prevId);
 			connection.commit();
-			numOfTransactions += block.getTransactions().size();
-			if (currentHeight % 10000 == 0) {
+			//numOfTransactions += block.getTransactions().size();
+			totalNumOfTransactions += block.getTransactions().size();
+			/*if (currentHeight % 10000 == 0) {
 				double duration = (System.currentTimeMillis() - startTime) / 1000.0;
 				logger.info("Inserted "
 						+ numOfTransactions
@@ -311,8 +315,13 @@ public class Blk2DB {
 						+ " seconds");
 				startTime = System.currentTimeMillis();
 				numOfTransactions = 0;
-			}
+			}*/
 		}
+		long totalDuration = System.currentTimeMillis() - mainStartTime;
+		logger.info("Time to insert the whole blockchain: " +
+				DurationFormatUtils.formatDurationHMS(totalDuration));
+		logger.info("The total number of transactions: " + totalNumOfTransactions);
+		logger.info("The rate: " + (totalDuration / 1000.0 / totalNumOfTransactions) + " seconds per transaction");
 
 		// stop manipulation on DB, leaving in clean state
 		keyStore = new DBKeyStore();
