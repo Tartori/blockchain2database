@@ -21,7 +21,7 @@ import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
-import org.bitcoinj.utils.BlockFileLoader;
+//import org.bitcoinj.utils.BlockFileLoader;
 
 import ch.bfh.blk2.bitcoin.comparator.Sha256HashComparator;
 import ch.bfh.blk2.bitcoin.util.BlockFileList;
