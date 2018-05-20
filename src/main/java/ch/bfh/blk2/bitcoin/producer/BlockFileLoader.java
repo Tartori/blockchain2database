@@ -13,6 +13,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * This class is a custom BlockFileLoader. With BlockFileLoader of Bitconj not all blocks
+ * have been loaded from .dat files. In this BlockFileLoader the restriction of the block size
+ * is deleted. Because the block is already in the blockchain we don't need to to check its size
+ * for parsing.
+ * 
+ *
+ * @author Anna
+ *
+ */
 public class BlockFileLoader implements Iterable<Block>, Iterator<Block> {
 
     private NetworkParameters params;
