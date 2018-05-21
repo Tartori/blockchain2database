@@ -15,10 +15,9 @@ import java.util.NoSuchElementException;
 
 /**
  * This class is a custom BlockFileLoader. With BlockFileLoader of Bitconj not all blocks
- * have been loaded from .dat files. In this BlockFileLoader the restriction of the block size
- * is deleted. Because the block is already in the blockchain we don't need to to check its size
- * for parsing.
- * 
+ * have been loaded from .dat files. In this BlockFileLoader it is allowed to be till 4Mb.
+ * This is the maximal size of a block with witness together.
+ *
  *
  * @author Anna
  *
@@ -101,9 +100,8 @@ public class BlockFileLoader implements Iterable<Block>, Iterator<Block> {
                 byte[] bytes = new byte[4];
                 currentFileStream.read(bytes, 0, 4);
                 long size = Utils.readUint32BE(Utils.reverseBytes(bytes), 0);
-                // We allow larger than MAX_BLOCK_SIZE because test code uses this as well.
-                /*if (size > Block.MAX_BLOCK_SIZE*2 || size <= 0)
-                    continue;*/
+                if (size > 1024*1024*4 || size <= 0)
+                    continue;
                 bytes = new byte[(int) size];
                 currentFileStream.read(bytes, 0, (int) size);
                 try {
