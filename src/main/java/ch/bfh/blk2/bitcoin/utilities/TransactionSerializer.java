@@ -1,5 +1,6 @@
 package ch.bfh.blk2.bitcoin.utilities;
 
+import ch.bfh.blk2.bitcoin.producer.BlockFileLoader;
 import org.bitcoinj.core.Block;
 import org.bitcoinj.core.Context;
 import org.bitcoinj.core.Transaction;
@@ -7,7 +8,6 @@ import org.bitcoinj.core.TransactionOutput;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptChunk;
-import org.bitcoinj.utils.BlockFileLoader;
 
 import ch.bfh.blk2.bitcoin.blockchain2database.Dataclasses.OuputScriptCreator;
 import ch.bfh.blk2.bitcoin.blockchain2database.Dataclasses.OutputScript;

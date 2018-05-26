@@ -83,3 +83,4 @@ blockchain2database.iml
 
 #bitcoinJ jar until they release the new versionsBackup
 !lib/bitcoinj-core-0.15-SNAPSHOT.jar
+src/main/java/ch/bfh/blk2/bitcoin/utilities/InputScriptStatistics.java___jb_tmp___

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import ch.bfh.blk2.bitcoin.producer.BlockFileLoader;
 import org.bitcoinj.core.Block;
 import org.bitcoinj.core.Context;
 import org.bitcoinj.core.NetworkParameters;
@@ -14,7 +15,6 @@ import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptChunk;
-import org.bitcoinj.utils.BlockFileLoader;
 
 import ch.bfh.blk2.bitcoin.util.BlockFileList;
 import ch.bfh.blk2.bitcoin.util.PropertiesLoader;

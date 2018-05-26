@@ -14,7 +14,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bitcoinj.core.Block;
 import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.utils.BlockFileLoader;
 
 import ch.bfh.blk2.bitcoin.comparator.Sha256HashComparator;
 import ch.bfh.blk2.bitcoin.util.BlockFileList;
@@ -29,7 +28,7 @@ import ch.bfh.blk2.bitcoin.util.Utility;
  * if a transaction T_B spends a T_A, then T_A will always be returned before
  * T_B.
  *
- * Please note, that each Iterator can use up to two gigabytes of memory, so be
+ * Please note, that each Iterator can use up to 8 gigabytes of memory, so be
  * careful when using it.
  *
  * @author niklaus, stefan

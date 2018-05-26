@@ -10,8 +10,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Locale;
+import static com.google.common.base.Preconditions.checkArgument;
+
 
 /**
  * This class is a custom BlockFileLoader. With BlockFileLoader of Bitconj not all blocks
@@ -33,6 +37,39 @@ public class BlockFileLoader implements Iterable<Block>, Iterator<Block> {
     public BlockFileLoader(NetworkParameters params, List<File> files) {
         fileIt = files.iterator();
         this.params = params;
+    }
+
+    /**
+     * Gets the list of files which contain blocks from Bitcoin Core.
+     */
+    public static List<File> getReferenceClientBlockFileList(File blocksDir) {
+        checkArgument(blocksDir.isDirectory(), "%s is not a directory", blocksDir);
+        List<File> list = new LinkedList<>();
+        for (int i = 0; true; i++) {
+            File file = new File(blocksDir, String.format(Locale.US, "blk%05d.dat", i));
+            if (!file.exists())
+                break;
+            list.add(file);
+        }
+        return list;
+    }
+
+    public static List<File> getReferenceClientBlockFileList() {
+        return getReferenceClientBlockFileList(defaultBlocksDir());
+    }
+
+    public static File defaultBlocksDir() {
+        final File defaultBlocksDir;
+        if (Utils.isWindows()) {
+            defaultBlocksDir = new File(System.getenv("APPDATA") + "\\.bitcoin\\blocks\\");
+        } else if (Utils.isMac()) {
+            defaultBlocksDir = new File(System.getProperty("user.home") + "/Library/Application Support/Bitcoin/blocks/");
+        } else if (Utils.isLinux()) {
+            defaultBlocksDir = new File(System.getProperty("user.home") + "/.bitcoin/blocks/");
+        } else {
+            throw new RuntimeException("Unsupported system");
+        }
+        return defaultBlocksDir;
     }
 
     @Override
@@ -118,6 +155,11 @@ public class BlockFileLoader implements Iterable<Block>, Iterator<Block> {
                 continue;
             }
         }
+    }
+
+    @Override
+    public void remove() throws UnsupportedOperationException {
+        throw new UnsupportedOperationException();
     }
 
     @Override

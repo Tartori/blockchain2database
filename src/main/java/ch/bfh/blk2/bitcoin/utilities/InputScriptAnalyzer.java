@@ -2,15 +2,14 @@ package ch.bfh.blk2.bitcoin.utilities;
 
 import java.util.List;
 
+import ch.bfh.blk2.bitcoin.producer.BlockFileLoader;
 import org.bitcoinj.core.Context;
 import org.bitcoinj.core.Block;
-import org.bitcoinj.script.ScriptException;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptChunk;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionInput;
 import org.bitcoinj.params.MainNetParams;
-import org.bitcoinj.utils.BlockFileLoader;
 
 public class InputScriptAnalyzer {
 	
