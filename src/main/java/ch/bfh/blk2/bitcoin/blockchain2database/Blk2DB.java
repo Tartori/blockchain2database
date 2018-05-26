@@ -291,6 +291,7 @@ public class Blk2DB {
 				// Don't do anything
 			}
 
+		// Enable the following lines if the intermediate performance measure is needed.
 		//int numOfTransactions = 0;
 		//long startTime = System.currentTimeMillis();
 		long mainStartTime = System.currentTimeMillis();
@@ -299,9 +300,11 @@ public class Blk2DB {
 		for (Block block : blockProducer) {
 			prevId = writeBlock(block, currentHeight++, prevId);
 			connection.commit();
-			//numOfTransactions += block.getTransactions().size();
 			totalNumOfTransactions += block.getTransactions().size();
-			/*if (currentHeight % 10000 == 0) {
+
+			// Enable the following lines if the intermediate performance measure is needed.
+			/*numOfTransactions += block.getTransactions().size();
+			if (currentHeight % 10000 == 0) {
 				double duration = (System.currentTimeMillis() - startTime) / 1000.0;
 				logger.info("Inserted "
 						+ numOfTransactions
@@ -317,6 +320,8 @@ public class Blk2DB {
 				numOfTransactions = 0;
 			}*/
 		}
+
+		// performance measure of inserting the whole blockchain
 		long totalDuration = System.currentTimeMillis() - mainStartTime;
 		logger.info("Time to insert the whole blockchain: " +
 				DurationFormatUtils.formatDurationHMS(totalDuration));
