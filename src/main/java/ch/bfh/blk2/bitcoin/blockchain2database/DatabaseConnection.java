@@ -1,12 +1,11 @@
 package ch.bfh.blk2.bitcoin.blockchain2database;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
+import java.util.Hashtable;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,6 +23,7 @@ public class DatabaseConnection {
 	
 	private static final Logger logger = LogManager.getLogger("DatabaseConnection");
 
+	private Hashtable<String, PreparedStatement> statements;
 
 	private static final String  DRIVER = "dbdriver", URL = "dburl",
 			USER = "user", PASSWORD = "password";
@@ -43,27 +43,28 @@ public class DatabaseConnection {
 		user = propertiesLoader.getProperty(USER);
 		password = propertiesLoader.getProperty(PASSWORD);
 		logger.info("user: " + user + "\tpassword: " + password + "\tdriver: " + driver + "\turl: " + url);
-
+		statements = new Hashtable<>();
 		connect();
 	}
 
 	/**
-	 * Returns a new PreparedStatement from the String you provided. It is your responsibility to close the statment once you're done with it.
+	 * Save a PreparedStatment to the hashtable if not exists.
+	 * Returns a PreparedStatement from the hashtable by the String you provided.
 	 * 
 	 * @param sql A String of the SQL statement you want to turn into a prepared statement
-	 * @return A PreparedStatement created from the provided String sql
+	 * @return A PreparedStatement from the provided String sql
 	 */
 	public PreparedStatement getPreparedStatement(String sql) {
 
-		PreparedStatement preparedStatement = null;
-
-		try {
-			preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-		} catch (SQLException | NullPointerException e) {
-			e.printStackTrace();
+		if(!statements.containsKey(sql)) {
+			try {
+				statements.put(sql, connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS));
+			} catch (SQLException | NullPointerException e) {
+				e.printStackTrace();
+			}
 		}
 
-		return preparedStatement;
+		return statements.get(sql);
 	}
 
 	private void connect() {
@@ -96,6 +97,9 @@ public class DatabaseConnection {
 	public void closeConnection() {
 		try {
 			connection.commit();
+			for (String key : statements.keySet()){
+				statements.get(key).close();
+			}
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -105,6 +109,9 @@ public class DatabaseConnection {
 	@Override
 	protected void finalize() throws Throwable {
 		try {
+			for (String key : statements.keySet()){
+				statements.get(key).close();
+			}
 			connection.close();
 		} catch (Throwable t) {
 			throw t;
