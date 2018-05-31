@@ -15,12 +15,10 @@ import org.bitcoinj.core.Block;
 import org.bitcoinj.core.Context;
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.core.Transaction;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.TestNet3Params;
 
 import ch.bfh.blk2.bitcoin.blockchain2database.Dataclasses.DataBlock;
-import ch.bfh.blk2.bitcoin.blockchain2database.Dataclasses.DataTransaction;
 import ch.bfh.blk2.bitcoin.producer.BlockProducer;
 import ch.bfh.blk2.bitcoin.producer.BlockSorter;
 import ch.bfh.blk2.bitcoin.util.BlockFileList;
@@ -128,7 +126,6 @@ public class Blk2DB {
 			}
 
 			rs.close();
-			statement.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -352,7 +349,6 @@ public class Blk2DB {
 			}
 
 			rs.close();
-			statement.close();
 		} catch (SQLException e) {
 			logger.fatal("Error while trying to get blk_id from blkHash");
 			logger.fatal("failed at", e);
@@ -393,7 +389,6 @@ public class Blk2DB {
 			}
 
 			rs.close();
-			statement.close();
 		} catch (SQLException e) {
 			logger.fatal("Error while trying to get Blkhash from Blkheight");
 			logger.fatal("failed at", e);
@@ -417,7 +412,6 @@ public class Blk2DB {
 			}
 
 			rs.close();
-			statement.close();
 		} catch (SQLException e) {
 			logger.fatal("Error while trying to get maximum block height");
 			logger.fatal("failed at", e);
