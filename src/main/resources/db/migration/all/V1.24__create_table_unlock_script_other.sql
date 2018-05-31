@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS unlock_script_other(
   script_size INT,
   script_id BIGINT,
     PRIMARY KEY(tx_id,tx_index),
-    FOREIGN KEY(tx_id, tx_index) REFERENCES input(tx_id, tx_index),
-    FOREIGN KEY(script_id) REFERENCES script(script_id)
+    FOREIGN KEY(tx_id, tx_index) REFERENCES input(tx_id, tx_index) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(script_id) REFERENCES script(script_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE = InnoDB;
 

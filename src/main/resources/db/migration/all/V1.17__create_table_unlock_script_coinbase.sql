@@ -4,5 +4,5 @@ CREATE TABLE IF NOT EXISTS unlock_script_coinbase(
   script_size INT,
   information VARCHAR(512),
     PRIMARY Key(tx_id,tx_index),
-    FOREIGN KEY(tx_id, tx_index) REFERENCES input(tx_id, tx_index)
+    FOREIGN KEY(tx_id, tx_index) REFERENCES input(tx_id, tx_index) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE = InnoDB;

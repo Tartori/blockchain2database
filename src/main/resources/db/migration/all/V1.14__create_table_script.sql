@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS script(
   op_code INT,
   data MEDIUMTEXT CHARACTER SET utf8,
     PRIMARY KEY(script_id, script_index),
-    FOREIGN KEY(op_code) REFERENCES op_codes(op_code)
+    FOREIGN KEY(op_code) REFERENCES op_codes(op_code) ON UPDATE CASCADE
 )ENGINE = InnoDB;

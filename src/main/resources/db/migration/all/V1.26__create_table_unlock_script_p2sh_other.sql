@@ -6,9 +6,9 @@ CREATE TABLE IF NOT EXISTS unlock_script_p2sh_other(
   script_id BIGINT,
   redeem_script_id BIGINT,
     PRIMARY KEY(tx_id,tx_index),
-    FOREIGN KEY(tx_id, tx_index) REFERENCES input(tx_id, tx_index),
-    FOREIGN KEY(script_id) REFERENCES script(script_id),
-    FOREIGN KEY(redeem_script_id) REFERENCES script(script_id)
+    FOREIGN KEY(tx_id, tx_index) REFERENCES input(tx_id, tx_index) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(script_id) REFERENCES script(script_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(redeem_script_id) REFERENCES script(script_id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE = InnoDB;
 
 

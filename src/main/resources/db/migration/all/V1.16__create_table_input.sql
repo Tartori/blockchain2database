@@ -7,6 +7,6 @@ CREATE TABLE IF NOT EXISTS input(
   amount BIGINT,
   script_type_id INT,
     PRIMARY KEY(tx_id,tx_index),
-    FOREIGN KEY(tx_id) REFERENCES transaction(tx_id),
-    FOREIGN KEY(script_type_id) REFERENCES script_type(id)
+    FOREIGN KEY(tx_id) REFERENCES transaction(tx_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(script_type_id) REFERENCES script_type(id) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE = InnoDB;
