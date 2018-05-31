@@ -8,15 +8,6 @@ Note that this software is not a Bitcoin client. It can not retrieve the
 Blockchain on it's own, so you will need a Bitcoin client and an up-to-date copy
 of the Blockchain.
 
-## Live Demo
-
-We have a live demo at [BlkChnQrs.org](https://blkchnqrs.org) where you can try
-out the database. There are instances for both [mainnet](https://mainnet.blkchnqrs.org)
-and [testnet3](https://testnet3.blkchnqrs.org). Use these credentials to login:
-
- * **username:** pubweb
- * **password:** privweb
-
 ## Database Schema
 
 If you're looking at the database and feeling lost, have a look at the database
@@ -68,7 +59,7 @@ it still took almost 10 days.
 
 To retrieve and update the Blockchain, you will also want a
 
- * [Bitcoin client](https://bitcoinclassic.com/)
+ * [Bitcoin client](https://bitcoin.org/en/bitcoin-core/)
 
 ### Compile requirements
 
@@ -157,6 +148,7 @@ So you will need to edit `/etc/mysql/my.cnf` and set at least these variables:
 ```
 max_heap_table_size=256G
 tmp_table_size=256G
+max_allowed_packet = 1G
 ```
 
 Whilst you are at it, you will probably also want to optimize some other
@@ -166,22 +158,19 @@ Please consult a MariaDB optimization guide for that instead.
 
 #### WARNING
 
-Changing MariaDB configuration might require you to restart the service. The
-MEMORY tables will get deleted on each restart of MariaDB. If you want to avoid
-data loss, you have to create a Dump of the data first. If you have to regularly
-restart the service or if you can't trust your MEMORY (for example, if you don't
-have ECC Memory), you should probably use a different storage engine.
+Changing MariaDB configuration might require you to restart the service. 
 
-In our experience, it's a good idea, to use the MEMORY storage engine for the
-initial read in of the data which can take a long time and causes high load on
-the DBMS and then switch over to InnoDB for daily use.
+### Database storage engine
 
-### Using InnoDB instead
+We have tested the software to work with InnoDB. If you do this, you will 
+want your InnoDB database to be stored on an SSD or similarly fast storage 
+backend.
 
-If you don't have the necessary amount of memory in your system, you can switch
-to another MariaDB storage engine. We have tested the software to work with
-InnoDB. If you do this, you will want your InnoDB database to be stored on an
-SSD or similarly fast storage backend.
+The tables with MEMORY engine will get deleted on each restart of MariaDB. 
+If you want to avoid data loss, you have to create a Dump of the data first. 
+If you have to regularly restart the service or if you can't trust your 
+MEMORY (for example, if you don't have ECC Memory), you should probably use 
+a different storage engine.
 
 To change the storage engine, you have to edit the SQL files, since the used
 storage engine is specified explicitly in each file. Note that you need to do
@@ -193,7 +182,7 @@ find](https://www.gnu.org/software/findutils/) and [GNU
 sed](https://www.gnu.org/software/sed/) and the arguments might be different for
 different implementations of these utilities (such as under BSD).
 ```
-~$ find src/main/resources/db/migration/ -name "*.sql" -exec sed -i -e's/ENGINE\s*=\s*MEMORY/ENGINE = InnoDB/g' {} \
+~$ find src/main/resources/db/migration/ -name "*.sql" -exec sed -i -e's/ENGINE\s*=\s*InnoDB/ENGINE = MEMORY/g' {} \;
 ```
 
 ## Testing / Development setup
@@ -235,6 +224,12 @@ simply add @testnet3 to the end of the command:
 
 ### Compiling and running the software
 
+Before run the software you should set the java heap space to 8G:
+```
+# Set java heap space
+~$ export _JAVA_OPTIONS="-Xmx8g"
+```
+
 You can compile the software using the usual Maven workflow. For the Unit tests
 to work, the `test_db.properties` needs to be configured. The unit tests have
 most of their Flyway configuration hardcoded in the
@@ -253,7 +248,7 @@ probably don't want to run the tests either. Once you have written all the
 configuration files and readied the database, you can run the Blockchain to
 Database software with this Maven command:
 ```
-mvn -Dmaven.test.skip=true clean package exec:java -Dexec.mainClass="ch.bfh.blk2.bitcoin.Blockchain2database.Blk2DB"
+mvn -Dmaven.test.skip=true clean package exec:java -Dexec.mainClass="ch.bfh.blk2.bitcoin.blockchain2database.Blk2DB"
 
 ```
 
