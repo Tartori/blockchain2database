@@ -81,7 +81,6 @@ public class P2PKHInputScript implements InputScript {
 			insertStatement.setLong(5, signId);
 
 			insertStatement.executeUpdate();
-			insertStatement.close();
 
 		} catch (SQLException e) {
 			logger.fatal("faild to insert Input script of type P2PK Hash", e);

@@ -85,7 +85,6 @@ public class DataTransaction {
 			}
 
 			rs.close();
-			transactionInsertStatement.close();
 
 		} catch (SQLException e) {
 			logger.fatal("Failed to write transaction " + transaction.getHashAsString());

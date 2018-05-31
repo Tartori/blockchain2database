@@ -68,7 +68,6 @@ public class OtherInputScript implements InputScript {
 
 			insertStatement.executeUpdate();
 
-			insertStatement.close();
 		} catch (SQLException e) {
 			logger.fatal(
 					"Unable to insert input script of type other for input #" + tx_index + " of transaction " + tx_id,

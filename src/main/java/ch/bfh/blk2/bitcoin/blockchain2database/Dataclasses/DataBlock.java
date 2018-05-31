@@ -113,8 +113,7 @@ public class DataBlock {
 			}
 
 			rs.close();
-			statement.close();
-			
+
 			// Now that the block has been written, write all the transactions
 			int blk_index = 0;
 			for( Transaction transaction: block.getTransactions()){

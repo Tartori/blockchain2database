@@ -119,7 +119,6 @@ public class DataInput {
 			statement.setInt(7, inScript.getType().getValue());
 
 			statement.executeUpdate();
-			statement.close();
 
 			updateOutputs();
 
@@ -145,8 +144,6 @@ public class DataInput {
 			statement.setLong(5, input.getOutpoint().getIndex());
 
 			statement.executeUpdate();
-
-			statement.close();
 
 		} catch (SQLException e) {
 			logger.fatal("Failed to update Output [tx: " + prev_tx_id + " , # " + input.getOutpoint().getIndex(), e);
@@ -187,7 +184,6 @@ public class DataInput {
 				throw new SQLException("Got a malformed response from the database while looking for the output");
 
 			rs.close();
-			statement.close();
 		} catch (SQLException e) {
 			logger.fatal("Unable to find output for one of transaction "
 					+ "tx # "

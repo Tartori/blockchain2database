@@ -61,7 +61,6 @@ public class MultisigInputScript implements InputScript {
 
 			insertStatement.executeUpdate();
 
-			insertStatement.close();
 		} catch (SQLException e) {
 			logger.fatal("Unable to write input script for input #" + tx_index + " of transaction with id " + tx_id, e);
 			System.exit(1);
@@ -83,7 +82,6 @@ public class MultisigInputScript implements InputScript {
 
 				connectionStatement.executeUpdate();
 
-				connectionStatement.close();
 			} catch (SQLException e) {
 				logger.fatal("Unable to connect input #"
 						+ tx_index

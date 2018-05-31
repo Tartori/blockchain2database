@@ -75,7 +75,6 @@ public class P2SHOtherInputScript implements InputScript {
 			insertStatement.setInt(6, redeemScript.length);
 
 			insertStatement.executeUpdate();
-			insertStatement.close();
 
 		} catch (SQLException e) {
 			logger.fatal("faild to insert Input script of type Coinbase", e);

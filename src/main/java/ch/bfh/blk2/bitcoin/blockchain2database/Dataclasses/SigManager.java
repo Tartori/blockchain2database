@@ -62,7 +62,6 @@ public class SigManager {
 				throw new SQLException("No id for a newly inserted row was returned");
 
 			resultSet.close();
-			insertStatement.close();
 		} catch (SQLException e) {
 			logger.fatal("Unable to insert signature " + Utils.HEX.encode(signature), e);
 			System.exit(1);

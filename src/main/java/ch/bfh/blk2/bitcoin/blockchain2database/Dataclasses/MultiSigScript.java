@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.bitcoinj.core.ECKey;
 import org.bitcoinj.script.ScriptException;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptChunk;
@@ -77,7 +76,6 @@ public class MultiSigScript implements OutputScript {
 			insertStatement.setInt(5, max);
 			insertStatement.executeUpdate();
 
-			insertStatement.close();
 		} catch (SQLException e) {
 			logger.fatal(
 					"Unable to insert the output (of type multisig) #" + tx_index + " of transaction with id " + tx_id,
@@ -107,7 +105,6 @@ public class MultiSigScript implements OutputScript {
 
 				insertStatement.executeUpdate();
 
-				insertStatement.close();
 			} catch (SQLException e) {
 				logger.fatal("Unable to connect multisig output #"
 						+ tx_index

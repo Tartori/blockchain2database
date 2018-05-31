@@ -69,7 +69,6 @@ public class OPReturnScript implements OutputScript {
 
 			insertStatement.executeUpdate();
 
-			insertStatement.close();
 		} catch (ScriptException | NullPointerException e) {
 			logger.fatal(
 					"Something went wrong when parsing the script for OP_Return output #"

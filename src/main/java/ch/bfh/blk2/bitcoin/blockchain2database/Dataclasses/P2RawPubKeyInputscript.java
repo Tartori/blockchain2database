@@ -74,7 +74,6 @@ public class P2RawPubKeyInputscript implements InputScript {
 
 			insertStatement.executeUpdate();
 
-			insertStatement.close();
 		} catch (SQLException e) {
 			logger.fatal(
 					"Unable to insert p2raw pub key input script for input #" + tx_index + " of transaction " + tx_id,

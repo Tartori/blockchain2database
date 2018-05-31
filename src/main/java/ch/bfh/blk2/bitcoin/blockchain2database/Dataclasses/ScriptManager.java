@@ -41,7 +41,6 @@ public class ScriptManager {
 			if (rs_1.next()) {
 				scriptId = rs_1.getLong(1);
 				rs_1.close();
-				queryStatement.close();
 			} else
 				throw new SQLException("Did not get a result as expected");
 		} catch (SQLException e) {
@@ -62,7 +61,6 @@ public class ScriptManager {
 
 				insertStatement.executeUpdate();
 
-				insertStatement.close();
 			} catch (SQLException e) {
 				logger.fatal("Unable to write chunk #" + 0 + " for this script: " + script.toString(), e);
 				System.exit(1);
@@ -81,7 +79,6 @@ public class ScriptManager {
 
 				insertStatement.executeUpdate();
 
-				insertStatement.close();
 			} catch (SQLException e) {
 				logger.fatal("Unable to write chunk #" + index + " for this script: " + script.toString(), e);
 				System.exit(1);

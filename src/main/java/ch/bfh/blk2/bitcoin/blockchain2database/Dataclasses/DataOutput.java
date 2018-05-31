@@ -59,7 +59,6 @@ public class DataOutput {
 			statement.setInt(4, outScript.getType().getValue());
 
 			statement.executeUpdate();
-			statement.close();
 
 			outScript.writeOutputScript(connection);
 

@@ -54,7 +54,6 @@ public class PubKeyManager {
 				pkId = resultPkId.getLong(1);
 
 			resultPkId.close();
-			getPKId.close();
 
 		} catch (SQLException e) {
 			logger.fatal("Failed to query adresse [" + pkHash + "]");
@@ -91,7 +90,6 @@ public class PubKeyManager {
 
 			ECKey publicKey = ECKey.fromPublicOnly(pkBytes);
 			pkHash = LegacyAddress.fromKey(Utility.PARAMS, publicKey).toString();
-			//pkHash = publicKey.toAddress(Utility.PARAMS).toString();
 			pkHex = publicKey.getPublicKeyAsHex();
 		} catch (IllegalArgumentException e) {
 			//String keyPrint = new String(pkBytes);
@@ -102,7 +100,6 @@ public class PubKeyManager {
 
 			byte[] pubKeyHash = Utils.sha256hash160(pkBytes);
 			pkHash = LegacyAddress.fromPubKeyHash(Utility.PARAMS, pubKeyHash).toString();
-			//pkHash = new Address(Utility.PARAMS, pubKeyHash).toString();
 			valid = false;
 		}
 
@@ -125,7 +122,6 @@ public class PubKeyManager {
 				updatePK.setString(1, pkHex);
 				updatePK.setLong(2, pkId);
 				updatePK.executeUpdate();
-				updatePK.close();
 			} else {
 				PreparedStatement insertPK = connection.getPreparedStatement(INSERT_PUBKEY);
 				insertPK.setString(1, pkHash);
@@ -144,7 +140,6 @@ public class PubKeyManager {
 				}
 
 				generatedKeys.close();
-				insertPK.close();
 			}
 
 		} catch (SQLException e) {
@@ -186,7 +181,6 @@ public class PubKeyManager {
 				}
 
 				generatedKeys.close();
-				insertAddr.close();
 			} catch (SQLException e) {
 				logger.fatal("Failed to Insert adresse [" + pkHash + "]", e);
 				connection.commit();

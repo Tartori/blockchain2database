@@ -64,7 +64,6 @@ public class P2SHScript implements OutputScript {
 		
 			insertScript.executeUpdate();
 		
-			insertScript.close();
 		} catch(SQLException e){
 			logger.fatal("Failed to write P2SH script");
 			logger.fatal("in output [tx_id: "+txId+", tx_index:"+txIndex+"]");

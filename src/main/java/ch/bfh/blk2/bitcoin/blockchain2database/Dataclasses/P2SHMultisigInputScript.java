@@ -99,7 +99,6 @@ public class P2SHMultisigInputScript implements InputScript {
 
 			insertStatement.executeUpdate();
 
-			insertStatement.close();
 		} catch (SQLException e) {
 			logger.error("Unable to write the p2sh multisig input script for inptu #"
 					+ tx_index
@@ -130,7 +129,6 @@ public class P2SHMultisigInputScript implements InputScript {
 
 				connectionStatement.executeUpdate();
 
-				connectionStatement.close();
 			} catch (SQLException e) {
 				logger.fatal("Unable to connect input #"
 						+ tx_index
@@ -161,7 +159,6 @@ public class P2SHMultisigInputScript implements InputScript {
 
 				insertStatement.executeUpdate();
 
-				insertStatement.close();
 			} catch (SQLException e) {
 				logger.fatal("Unable to connect multisig output #"
 						+ tx_index
